@@ -13,20 +13,28 @@ namespace temp
 		static void Main(string[] args)
 		{
 			var sw = Stopwatch.StartNew();
-			int count = 1 * 1000 * 1000;
-			int ten = count / 10;
+			TimeSpan prev = TimeSpan.MinValue;
+
+			int count = 100 * 1000 * 1000;
+			int ten = count / 100;
 
 			var processor = new WordsProcessor();
 			for (int i = 0; i < count; i++)
 			{
 				char[] charArray = Guid.NewGuid().ToString().ToCharArray();
+//				char[] charArray = i.ToString().ToCharArray();
 				processor.Add(charArray);
 				processor.Add(charArray);
 				processor.Add(charArray);
 				processor.Add(charArray);
 				if (i >= ten && i % ten == 0)
 				{
-					Console.Out.WriteLine(sw.Elapsed);
+					var mem = Process.GetCurrentProcess().PagedMemorySize64 / 1024 / 1024;
+					string p = "";
+					if (prev != TimeSpan.MinValue)
+						p = (sw.Elapsed - prev).ToString();
+					Console.Out.WriteLine(sw.Elapsed + " " + p + " " + mem + " MB" + " Count: " + i);
+					prev = sw.Elapsed;
 				}
 			}
 			processor.Flush();
@@ -37,17 +45,24 @@ namespace temp
 	{
 		public void Add(char[] wordChars)
 		{
-			var word = new string(wordChars);
+			Add(wordChars, 0, wordChars.Length);
+		}
+
+		public void Add(char[] wordChars, int index, int len)
+		{
+			var word = Encoding.UTF8.GetBytes(wordChars, index, len);
 			if (!words.ContainsKey(word))
 			{
 				words.Add(word, 1);
-				estimatedSize += Encoding.UTF8.GetByteCount(wordChars) + 1/*for space*/ + 4 /*for count, 10 is max, 2 is most expected*/;
+				estimatedFileSize += word.Length + 1/*for space*/ + 4 /*for count, 10 is max, 2 is most expected, 4 is for reserve*/;
 			}
 			else 
 				words[word]++;
 
-			if (estimatedSize > Consts.CHUNK_SIZE)
+			if (estimatedFileSize > Consts.CHUNK_SIZE)
+			{
 				Flush();
+			}
 		}
 
 		public void Flush()
@@ -59,18 +74,17 @@ namespace temp
 			{
 				foreach (var word in words)
 				{
-					var count = Encoding.UTF8.GetBytes(word.Key, 0, word.Key.Length, buf, 0);
-					fs.Write(buf, 0, count);
+					fs.Write(word.Key, 0, word.Key.Length);
 					fs.WriteByte(Chars.SP);
 					string wcount = word.Value.ToString(CultureInfo.InvariantCulture);
-					count = Encoding.UTF8.GetBytes(wcount, 0, wcount.Length, buf, 0);
+					var count = Encoding.UTF8.GetBytes(wcount, 0, wcount.Length, buf, 0);
 					fs.Write(buf, 0, count);
 					fs.Write(Chars.EOL, 0, Chars.EOL.Length);
 				}
 			}
 			words.Clear();
-			estimatedSize = 0;
-			Log.Debug("Chunk flushed to file: " + chunkFileName);
+			estimatedFileSize = 0;
+			Log.Info("Chunk flushed to file: " + chunkFileName);
 		}
 
 		private string GetChunkFileName()
@@ -85,21 +99,44 @@ namespace temp
 				new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "workspace/chunks_" + DateTime.UtcNow.Ticks));
 			if (!dir.Exists)
 				dir.Create();
-			Log.Debug("Chunks directory craeted: " + dir.FullName);
+			Log.Info("Chunks directory craeted: " + dir.FullName);
 			return dir;
 		}
 
 		private byte[] buf = new byte[1 * 1024 * 1024]; // in the real life there is no words longer then 200 KB (© wikipedia)
 
-		private SortedDictionary<string, int> words = new SortedDictionary<string, int>();
-		private int estimatedSize = 0;
+		private readonly SortedDictionary<byte[], int> words = new SortedDictionary<byte[], int>(new CharsComparer());
+		private int estimatedFileSize = 0;
 		private int chunkNumber = 0;
 		private DirectoryInfo chunksDir;
 	}
 
+	internal class CharsComparer : IComparer<char[]>, IComparer<byte[]>
+	{
+		public int Compare(char[] x, char[] y)
+		{
+			int min = Math.Min(x.Length, y.Length);
+			for(int i = 0; i < min; i++)
+			{
+				if (x[i] != y[i]) return x[i] - y[i];
+			}
+			return x.Length - y.Length;
+		}
+
+		public int Compare(byte[] x, byte[] y)
+		{
+			int min = Math.Min(x.Length, y.Length);
+			for(int i = 0; i < min; i++)
+			{
+				if (x[i] != y[i]) return x[i] - y[i];
+			}
+			return x.Length - y.Length;
+		}
+	}
+
 	public static class Consts
 	{
-		public const int CHUNK_SIZE = 128*1024*1024;
+		public const int CHUNK_SIZE = 64*1024*1024;
 	}
 
 	public static class Chars
