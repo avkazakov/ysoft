@@ -5,7 +5,7 @@ namespace temp
 {
 	public interface IInput
 	{
-		void MoveNext();
+		string MoveNext();
 		string Current { get; }
 	}
 
@@ -17,12 +17,13 @@ namespace temp
 			currentLine = reader.ReadLine();
 		}
 
-		public void MoveNext()
+		public string MoveNext()
 		{
 			if (reader.EndOfStream)
 				currentLine = null;
 			else
 				currentLine = reader.ReadLine();
+			return currentLine;
 		}
 
 		public string Current { get { return currentLine; } }

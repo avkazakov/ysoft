@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -47,16 +46,6 @@ namespace temp
 			Console.Out.WriteLine(swr.Elapsed);
 			return;
 			Test();
-			return;
-			//string file = @"c:\temp\bigfile";
-			var sw = Stopwatch.StartNew();
-			string file = @"c:\kazakoff\dev\kazakov.ysoft\temp\bin\Release\workspace\chunks_634725060689315517\chunk_1";
-			StreamReader sr = new StreamReader(file, Encoding.UTF8);
-			while(!sr.EndOfStream)
-			{
-				var str = sr.ReadLine();
-
-			}
 		}
 
 		private static void Test()
@@ -83,29 +72,6 @@ namespace temp
 				}
 			}
 			processor.Flush();
-		}
-	}
-
-	internal class Comparer : IComparer<char[]>, IComparer<byte[]>
-	{
-		public int Compare(char[] x, char[] y)
-		{
-			int min = Math.Min(x.Length, y.Length);
-			for(int i = 0; i < min; i++)
-			{
-				if (x[i] != y[i]) return x[i] - y[i];
-			}
-			return x.Length - y.Length;
-		}
-
-		public int Compare(byte[] x, byte[] y)
-		{
-			int min = Math.Min(x.Length, y.Length);
-			for(int i = 0; i < min; i++)
-			{
-				if (x[i] != y[i]) return x[i] - y[i];
-			}
-			return x.Length - y.Length;
 		}
 	}
 

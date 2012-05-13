@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparer.cs" />
     <Compile Include="IInput.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Merger.cs" />
