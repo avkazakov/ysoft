@@ -12,26 +12,71 @@ namespace temp
 	{
 		static void Main(string[] args)
 		{
+			var swr = Stopwatch.StartNew();
+			string[] fileNames = Directory.GetFiles(@"c:\kazakoff\dev\kazakov.ysoft\temp\bin\Release\workspace\chunks_634725078589815388\");
+
+			FileStream[] files = new FileStream[fileNames.Length];
+			Input[] inputs = new Input[fileNames.Length];
+			StreamReader[] readers = new StreamReader[fileNames.Length];
+			try
+			{
+				for(int i = 0; i < files.Length; i++)
+				{
+					files[i] = new FileStream(fileNames[i], FileMode.Open, FileAccess.Read, FileShare.Read, 200*1024);
+					readers[i] = new StreamReader(files[i], Encoding.UTF8, false, 200*1024);
+					inputs[i] = new Input(readers[i]);
+				}
+				using(FileStream output = new FileStream(@"c:\temp\lala\out", FileMode.Create, FileAccess.Write, FileShare.Read, 16*1024*1024))
+				{
+					new Merger().Merge(inputs, output);
+				}
+			}
+			finally
+			{
+				for(int i = 0; i < files.Length; i++)
+				{
+					if (files[i] != null)
+						files[i].Dispose();
+					if (readers[i] != null)
+						readers[i].Dispose();
+				}	
+			}
+
+			Console.Out.WriteLine("PeakPagedMemorySize: " + Process.GetCurrentProcess().PeakPagedMemorySize64 / 1024 / 1024);
+			Console.Out.WriteLine("PeakWorkingSet: " + Process.GetCurrentProcess().PeakWorkingSet64 / 1024 / 1024);
+			Console.Out.WriteLine(swr.Elapsed);
+			return;
+			Test();
+			return;
+			//string file = @"c:\temp\bigfile";
+			var sw = Stopwatch.StartNew();
+			string file = @"c:\kazakoff\dev\kazakov.ysoft\temp\bin\Release\workspace\chunks_634725060689315517\chunk_1";
+			StreamReader sr = new StreamReader(file, Encoding.UTF8);
+			while(!sr.EndOfStream)
+			{
+				var str = sr.ReadLine();
+
+			}
+		}
+
+		private static void Test()
+		{
 			var sw = Stopwatch.StartNew();
 			TimeSpan prev = TimeSpan.MinValue;
-
 			int count = 100 * 1000 * 1000;
 			int ten = count / 100;
-
 			var processor = new WordsProcessor();
-			for (int i = 0; i < count; i++)
+			var rnd = new Random();
+			for(int i = 0; i < count; i++)
 			{
-				char[] charArray = Guid.NewGuid().ToString().ToCharArray();
+				char[] charArray = rnd.Next(0, 10*1000*1000).ToString(CultureInfo.InvariantCulture).ToCharArray();
 //				char[] charArray = i.ToString().ToCharArray();
 				processor.Add(charArray);
-				processor.Add(charArray);
-				processor.Add(charArray);
-				processor.Add(charArray);
-				if (i >= ten && i % ten == 0)
+				if(i >= ten && i % ten == 0)
 				{
 					var mem = Process.GetCurrentProcess().PagedMemorySize64 / 1024 / 1024;
 					string p = "";
-					if (prev != TimeSpan.MinValue)
+					if(prev != TimeSpan.MinValue)
 						p = (sw.Elapsed - prev).ToString();
 					Console.Out.WriteLine(sw.Elapsed + " " + p + " " + mem + " MB" + " Count: " + i);
 					prev = sw.Elapsed;
@@ -41,77 +86,7 @@ namespace temp
 		}
 	}
 
-	public class WordsProcessor
-	{
-		public void Add(char[] wordChars)
-		{
-			Add(wordChars, 0, wordChars.Length);
-		}
-
-		public void Add(char[] wordChars, int index, int len)
-		{
-			var word = Encoding.UTF8.GetBytes(wordChars, index, len);
-			if (!words.ContainsKey(word))
-			{
-				words.Add(word, 1);
-				estimatedFileSize += word.Length + 1/*for space*/ + 4 /*for count, 10 is max, 2 is most expected, 4 is for reserve*/;
-			}
-			else 
-				words[word]++;
-
-			if (estimatedFileSize > Consts.CHUNK_SIZE)
-			{
-				Flush();
-			}
-		}
-
-		public void Flush()
-		{
-			if (chunksDir == null)
-				chunksDir = CreateChunksDir();
-			string chunkFileName = GetChunkFileName();
-			using(var fs = new FileStream(chunkFileName, FileMode.Create, FileAccess.Write, FileShare.Read, 1 * 1024 * 1024))
-			{
-				foreach (var word in words)
-				{
-					fs.Write(word.Key, 0, word.Key.Length);
-					fs.WriteByte(Chars.SP);
-					string wcount = word.Value.ToString(CultureInfo.InvariantCulture);
-					var count = Encoding.UTF8.GetBytes(wcount, 0, wcount.Length, buf, 0);
-					fs.Write(buf, 0, count);
-					fs.Write(Chars.EOL, 0, Chars.EOL.Length);
-				}
-			}
-			words.Clear();
-			estimatedFileSize = 0;
-			Log.Info("Chunk flushed to file: " + chunkFileName);
-		}
-
-		private string GetChunkFileName()
-		{
-			chunkNumber++;
-			return Path.Combine(chunksDir.FullName, "chunk_" + chunkNumber);
-		}
-
-		private DirectoryInfo CreateChunksDir()
-		{
-			var dir =
-				new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "workspace/chunks_" + DateTime.UtcNow.Ticks));
-			if (!dir.Exists)
-				dir.Create();
-			Log.Info("Chunks directory craeted: " + dir.FullName);
-			return dir;
-		}
-
-		private byte[] buf = new byte[1 * 1024 * 1024]; // in the real life there is no words longer then 200 KB (© wikipedia)
-
-		private readonly SortedDictionary<byte[], int> words = new SortedDictionary<byte[], int>(new CharsComparer());
-		private int estimatedFileSize = 0;
-		private int chunkNumber = 0;
-		private DirectoryInfo chunksDir;
-	}
-
-	internal class CharsComparer : IComparer<char[]>, IComparer<byte[]>
+	internal class Comparer : IComparer<char[]>, IComparer<byte[]>
 	{
 		public int Compare(char[] x, char[] y)
 		{
@@ -142,6 +117,6 @@ namespace temp
 	public static class Chars
 	{
 		public static byte SP = 32;
-		public static byte[] EOL = new byte[]{13, 10};
+		public static byte EOL = 10;
 	}
 }
