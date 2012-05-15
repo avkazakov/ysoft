@@ -11,8 +11,16 @@ namespace temp
 	{
 		static void Main(string[] args)
 		{
+			return;
 			var swr = Stopwatch.StartNew();
-			string[] fileNames = Directory.GetFiles(@"c:\kazakoff\dev\kazakov.ysoft\temp\bin\Release\workspace\chunks_634725078589815388\");
+
+//			Test();
+//			Console.Out.WriteLine("PeakPagedMemorySize: " + Process.GetCurrentProcess().PeakPagedMemorySize64 / 1024 / 1024);
+//			Console.Out.WriteLine("PeakWorkingSet: " + Process.GetCurrentProcess().PeakWorkingSet64 / 1024 / 1024);
+//			Console.Out.WriteLine(swr.Elapsed);
+//			return;
+
+			string[] fileNames = Directory.GetFiles(@"c:\kazakoff\dev\kazakov.ysoft\temp\bin\Release\workspace\chunks_634725168090484560\");
 
 			FileStream[] files = new FileStream[fileNames.Length];
 			Input[] inputs = new Input[fileNames.Length];
@@ -45,21 +53,20 @@ namespace temp
 			Console.Out.WriteLine("PeakWorkingSet: " + Process.GetCurrentProcess().PeakWorkingSet64 / 1024 / 1024);
 			Console.Out.WriteLine(swr.Elapsed);
 			return;
-			Test();
 		}
 
 		private static void Test()
 		{
 			var sw = Stopwatch.StartNew();
 			TimeSpan prev = TimeSpan.MinValue;
-			int count = 100 * 1000 * 1000;
-			int ten = count / 100;
+			//int count = 1000 * 1000 * 1000;
+			int count = int.MaxValue;
+			int ten = count / 1000;
 			var processor = new WordsProcessor();
 			var rnd = new Random();
 			for(int i = 0; i < count; i++)
 			{
-				char[] charArray = rnd.Next(0, 10*1000*1000).ToString(CultureInfo.InvariantCulture).ToCharArray();
-//				char[] charArray = i.ToString().ToCharArray();
+				char[] charArray = rnd.Next(0, int.MaxValue).ToString(CultureInfo.InvariantCulture).ToCharArray();
 				processor.Add(charArray);
 				if(i >= ten && i % ten == 0)
 				{
@@ -77,7 +84,7 @@ namespace temp
 
 	public static class Consts
 	{
-		public const int CHUNK_SIZE = 64*1024*1024;
+		public const int CHUNK_SIZE = 128*1024*1024;
 	}
 
 	public static class Chars
