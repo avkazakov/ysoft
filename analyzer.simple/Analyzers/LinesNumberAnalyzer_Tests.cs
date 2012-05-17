@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Analyzer.Simple
 {
-	partial class LinesNumberAnalyzer 
+	sealed partial class LinesNumberAnalyzer 
 	{
 		[TestFixture]
 		internal class LinesNumberAnalyzer_Tests

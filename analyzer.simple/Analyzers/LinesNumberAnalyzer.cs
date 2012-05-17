@@ -4,7 +4,7 @@ namespace Analyzer.Simple
 	/// Note the following common line feed chars: 
 	/// \n - UNIX   \r\n - Win   \r - Mac 
 	/// </summary>
-	partial class LinesNumberAnalyzer : IAnalyzer
+	sealed partial class LinesNumberAnalyzer : IAnalyzer
 	{
 		public void TreatChar(char c)
 		{
