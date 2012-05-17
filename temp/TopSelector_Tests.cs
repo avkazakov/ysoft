@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using NUnit.Framework;
 
 namespace temp
@@ -9,7 +10,26 @@ namespace temp
 	public class TopSelector_Tests
 	{
 		[Test]
-		public void Test_Simple()
+		public void Test_Simple_Asc()
+		{
+			var	ts = new TopSelector();
+			int max = 100;
+			var input = new SimpleTestInput(max);
+			ts.Do(input);
+
+			var top = ts.Top;
+
+			int expected = max;
+			foreach(Freq freq in top)
+			{
+				Console.Out.WriteLine(freq);
+				Assert.AreEqual(expected, freq.Frequency);
+				expected--;
+			}
+		}
+
+		[Test]
+		public void Test_Simple_Desc()
 		{
 			var	ts = new TopSelector();
 			int max = 100;
@@ -33,7 +53,7 @@ namespace temp
 			for(int i = 0; i < 100; i++)
 			{
 				var rnd = new Random();
-				int count = rnd.Next(10, 1000);
+				int count = rnd.Next(11, 1000);
 				var input = new RndTestInput(count);
 				var	ts = new TopSelector();
 				ts.Do(input);
@@ -52,7 +72,7 @@ namespace temp
 				{
 					Console.Out.WriteLine(k);
 					Console.Out.WriteLine(freq);
-					Assert.AreEqual(frequences[k], freq.Frequency);
+					Assert.AreEqual(frequences[k], freq.Frequency, input.Statistic.Where(p => p.Value == frequences[k]).First().ToString());
 					k++;
 				}
 			}
@@ -60,11 +80,10 @@ namespace temp
 
 		class SimpleTestInput : IInput
 		{
-			public SimpleTestInput(int count)
+			public SimpleTestInput(int count, bool desc = false)
 			{
 				this.count = count;
-				curr++;
-				Current = "word" + curr + " " + curr;
+				this.desc = desc;
 			}
 
 			public string MoveNext()
@@ -74,23 +93,31 @@ namespace temp
 					Current = null;
 					return null;
 				}
-				curr++;
-				Current = "word" + curr + " " + curr;
+				Next();
 				return Current;
+			}
+
+			private void Next()
+			{
+				curr++;
+				var freq = desc ? count - curr : curr;
+				Current = "word" + curr + " " + freq;
 			}
 
 			public string Current { get; set; }
 
 			private int curr = 0;
 			private readonly int count;
+			private readonly bool desc;
 		}
+
+	
 
 		class RndTestInput : IInput
 		{
 			public RndTestInput(int count)
 			{
 				this.count = count;
-				Next();
 			}
 
 			public string MoveNext()
@@ -119,7 +146,7 @@ namespace temp
 
 			public string Current { get; set; }
 
-			public Dictionary<int, int> Statistic = new Dictionary<int, int>();
+			public readonly Dictionary<int, int> Statistic = new Dictionary<int, int>();
 
 			private int curr = 0;
 			private readonly int count;
