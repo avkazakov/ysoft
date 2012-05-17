@@ -9,7 +9,7 @@ namespace temp
 		string Current { get; }
 	}
 
-	internal sealed class Input : IInput
+	public sealed class Input : IInput
 	{
 		public Input(StreamReader reader)
 		{

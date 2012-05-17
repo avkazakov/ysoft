@@ -6,6 +6,32 @@ using System.Text;
 
 namespace temp
 {
+	public class Freq
+	{
+		public Freq(string word, int frequency)
+		{
+			Word = word;
+			Frequency = frequency;
+		}
+
+		// input: "some_word 312"
+		public static Freq Parse(string input)
+		{
+			int spaceIndex = input.IndexOf(' ');
+			var freq = int.Parse(input.Substring(spaceIndex + 1));
+
+			return new Freq(input.Substring(0, spaceIndex), freq);
+		}
+
+		public override string ToString()
+		{
+			return string.Format("Word: {0}, Frequency: {1}", Word, Frequency);
+		}
+
+		public string Word;
+		public int Frequency;
+	}
+
 	public class Pair
 	{
 		public Pair(int inputIndex, string key)
