@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using Analyzer.Simple;
 
 namespace temp
 {
@@ -11,7 +13,25 @@ namespace temp
 	{
 		static void Main(string[] args)
 		{
-//			return;
+//			for(int i = 0; i < int.MaxValue; i++)
+//			{
+//			}
+//			Console.Out.WriteLine("");
+//			Console.Out.WriteLine("DONE");
+
+			var count = 33*1333*9333;
+
+			var progressNotifier = ProgressNotifier.Start("Iteration by int", count);
+			for(int i = 0; i < count - 1; i++)
+			{
+				progressNotifier.ReportOperation();
+			}
+			progressNotifier.Finish();
+			Console.Out.WriteLine("");
+			Console.Out.WriteLine("DONE");
+
+
+			return;
 
 //			Test();
 //			Console.Out.WriteLine("PeakPagedMemorySize: " + Process.GetCurrentProcess().PeakPagedMemorySize64 / 1024 / 1024);

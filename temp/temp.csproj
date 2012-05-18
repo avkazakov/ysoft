@@ -57,6 +57,12 @@
     <Compile Include="TopSelector_Tests.cs" />
     <Compile Include="WordsProcessor.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\analyzer.simple\analyzer.simple.csproj">
+      <Project>{19AD25FF-2FD9-48AA-82B6-7348D1C5A524}</Project>
+      <Name>analyzer.simple</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

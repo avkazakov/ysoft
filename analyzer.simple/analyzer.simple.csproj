@@ -74,6 +74,7 @@
     <Compile Include="Analyzers\LinesNumberAnalyzer_Tests.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProgressNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Analyzers\SimpleAnalysisResult.cs" />
     <Compile Include="Analyzers\WordsNumberAnalyzer.cs" />
