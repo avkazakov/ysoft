@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Analyzer.Core
+namespace Analyzer.Simple
 {
 	/// <summary>
 	/// Locks is OK in this solution, no need to hurry printing statistic or debug logs
