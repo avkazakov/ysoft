@@ -58,6 +58,10 @@
     <Compile Include="WordsProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\analyzer.core\analyzer.core.csproj">
+      <Project>{E4CE91B6-49B7-450D-B4C8-D868A425DC64}</Project>
+      <Name>analyzer.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\analyzer.simple\analyzer.simple.csproj">
       <Project>{19AD25FF-2FD9-48AA-82B6-7348D1C5A524}</Project>
       <Name>analyzer.simple</Name>

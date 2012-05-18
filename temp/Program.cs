@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Analyzer.Simple;
+using Analyzer.Core;
 
 namespace temp
 {

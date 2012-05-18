@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Analyzer.Simple
+namespace Analyzer.Core
 {
 	class Program
 	{

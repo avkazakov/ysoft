@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E4CE91B6-49B7-450D-B4C8-D868A425DC64}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Analyzer.Core</RootNamespace>
+    <AssemblyName>analyzer.core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\external\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnalyzerSet.cs" />
+    <Compile Include="Analyzers\Chars.cs" />
+    <Compile Include="Analyzers\CharsNumberAnalyzer.cs" />
+    <Compile Include="Analyzers\CharsNumberAnalyzer_Tests.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\ChunkReader.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\ChunksMerger.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\ChunksMerger_Tests.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\ChunkWriter.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\ComplexWordsAnalysisResult.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\IChunkReader.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\IChunkWriter.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\TopSelector.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\TopSelector_Tests.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsComplexAnalyzer.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsComplexAnalyzer_Tests.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsFrequency.cs" />
+    <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsProcessor.cs" />
+    <Compile Include="Analyzers\Const.cs" />
+    <Compile Include="Analyzers\IAnalyzer.cs" />
+    <Compile Include="Analyzers\KnownAbbreviations.cs" />
+    <Compile Include="Analyzers\LinesNumberAnalyzer.cs" />
+    <Compile Include="Analyzers\LinesNumberAnalyzer_Tests.cs" />
+    <Compile Include="Analyzers\SentencesNumberAnalyzer.cs" />
+    <Compile Include="Analyzers\SentencesNumberAnalyzer_Tests.cs" />
+    <Compile Include="Analyzers\SimpleAnalysisResult.cs" />
+    <Compile Include="Analyzers\WordsNumberAnalyzer.cs" />
+    <Compile Include="Analyzers\WordsNumberAnalyzer_Tests.cs" />
+    <Compile Include="Comparer.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Extensions_Tests.cs" />
+    <Compile Include="IAnalysisResult.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="ProgressNotifier.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
