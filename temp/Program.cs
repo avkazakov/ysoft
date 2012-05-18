@@ -19,7 +19,7 @@ namespace temp
 //			Console.Out.WriteLine("");
 //			Console.Out.WriteLine("DONE");
 
-			var count = 33*1333*9333;
+			var count = 33*1133*9333;
 
 			var progressNotifier = ProgressNotifier.Start("Iteration by int", count);
 			for(int i = 0; i < count - 1; i++)
@@ -27,6 +27,10 @@ namespace temp
 //				progressNotifier.ReportOperation();
 				progressNotifier.ReportCompleted(i);
 			}
+			progressNotifier.Finish();
+			progressNotifier.Finish();
+			progressNotifier.ReportCompleted(count + 100000);
+			progressNotifier.Finish();
 			progressNotifier.Finish();
 			Console.Out.WriteLine("");
 			Console.Out.WriteLine("DONE");

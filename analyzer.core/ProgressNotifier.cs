@@ -24,31 +24,35 @@ namespace Analyzer.Core
 
 		public void ReportCompleted(long alreadyCompletedOperations)
 		{
+			if (alreadyCompletedOperations > expectedOperaions)
+				alreadyCompletedOperations = expectedOperaions;
 			completedOperations = alreadyCompletedOperations;
 			double p = ((double)completedOperations / expectedOperaions) * 100;
 			progress = (int)p;
 			if (progress == prevProgress)
 				return;
 			PrintCurrentProgress();
-			prevProgress = progress;
-			if(progress == 100)
-				Console.Out.WriteLine("");
 		}
 
 		private void PrintCurrentProgress()
 		{
+			if (finished)
+				return;
+			prevProgress = progress;
 			int l = Console.CursorLeft;
 			Console.CursorLeft = l - (prevProgress.ToString().Length + " %".Length);
 			Console.Out.Write(progress.ToString() + " %");
+			if(progress == 100)
+			{
+				finished = true;
+				Console.Out.WriteLine("");
+			}
 		}
 
 		public void Finish()
 		{
-			if (prevProgress != 100)
-				prevProgress = 100;
 			progress = 100;
 			PrintCurrentProgress();
-			Console.Out.WriteLine("");
 		}
 
 
@@ -60,6 +64,7 @@ namespace Analyzer.Core
 		private readonly string processName;
 		private readonly long expectedOperaions;
 
+		private bool finished = false;
 		private int prevProgress;
 		private int progress;
 		private long completedOperations;

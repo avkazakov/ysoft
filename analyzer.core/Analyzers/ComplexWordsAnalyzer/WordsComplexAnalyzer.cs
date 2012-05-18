@@ -3,18 +3,18 @@ using System.IO;
 
 namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
 {
-	internal sealed partial class WordsComplexAnalyzer : IAnalyzer
+	public sealed partial class WordsComplexAnalyzer : IAnalyzer
 	{
 		public void TreatChar(char c)
 		{
 			if(char.IsLetter(c))
 			{
-				currWord[currWordLen] = c;
+				currWord[currWordLen] = char.ToLower(c);
 				currWordLen++;
 			}
 			else if(currWordLen > 0)
 			{
-				wordsProcessor.Add(currWord, 0, currWordLen);
+				wordsProcessor.Add(currWord, currWordLen);
 				wordsCount++;
 				currWordLen = 0;
 			}
@@ -24,7 +24,7 @@ namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
 		{
 			if(currWordLen > 0)
 			{
-				wordsProcessor.Add(currWord, 0, currWordLen);
+				wordsProcessor.Add(currWord, currWordLen);
 				wordsCount++;
 				currWordLen = 0;
 			}

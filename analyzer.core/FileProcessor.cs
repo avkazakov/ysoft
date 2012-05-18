@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Security;
 using System.Text;
 using Analyzer.Core.Analyzers;
+using Analyzer.Core.Utilities;
 
 namespace Analyzer.Core
 {
@@ -10,12 +12,14 @@ namespace Analyzer.Core
 	{
 		public void ProcessFile(string fileName, IAnalyzer analyzer)
 		{
+			var sw = Stopwatch.StartNew();
 			StreamReader reader;
 			if (!TryOpenFile(fileName, out reader))
 				return;
 			using(reader)
 			{
-				ProgressNotifier progressNotifier = ProgressNotifier.Start("Reading and analyzation", reader.BaseStream.Length - reader.BaseStream.Position);
+				PrintFileInfo(fileName, reader);
+				ProgressNotifier progressNotifier = ProgressNotifier.Start("Reading and analyzing..", reader.BaseStream.Length - reader.BaseStream.Position);
 				var chars = new char[4 * 1024];
 				int read;
 				while((read = reader.Read(chars, 0, chars.Length)) > 0)
@@ -24,13 +28,22 @@ namespace Analyzer.Core
 					{
 						analyzer.TreatChar(chars[i]);
 					}
-					progressNotifier.ReportOperation();
+					progressNotifier.ReportCompleted(reader.BaseStream.Position);
 				}
 				progressNotifier.Finish();
 			}
 			var analysisResult = analyzer.Finish();
 			Console.Out.WriteLine("----");
 			Console.Out.WriteLine(analysisResult.ToHumanReadableText());
+			Console.Out.WriteLine("----");
+			Console.Out.WriteLine("Working time: " + sw.Elapsed);
+		}
+
+		private static void PrintFileInfo(string fileName, StreamReader reader)
+		{
+			Console.Out.WriteLine("Input file:      {0}", fileName);
+			Console.Out.WriteLine("Input file size: {0}", HumanReadableFormatter.FormatBytes(reader.BaseStream.Length));
+			Console.Out.WriteLine("");
 		}
 
 		private bool TryOpenFile(string fileName, out StreamReader reader)

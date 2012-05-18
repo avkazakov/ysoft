@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Analyzer.Core.Analyzers
 {
 	class SimpleAnalysisResult : IAnalysisResult
@@ -10,7 +12,7 @@ namespace Analyzer.Core.Analyzers
 
 		public string ToHumanReadableText()
 		{
-			return string.Format("{0} : {1}", numMeaning, numer);
+			return string.Format("{0} : {1}", numMeaning, numer.ToString("N0", CultureInfo.InvariantCulture));
 		}
 
 		private readonly long numer;

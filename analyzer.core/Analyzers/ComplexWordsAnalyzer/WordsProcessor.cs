@@ -15,12 +15,15 @@ namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
 
 		public void Add(char[] wordChars)
 		{
-			Add(wordChars, 0, wordChars.Length);
+			Add(wordChars, wordChars.Length);
 		}
 
-		public void Add(char[] wordChars, int index, int len)
+		public void Add(char[] wordChars, int len)
 		{
-			byte[] word = Encoding.UTF8.GetBytes(wordChars, index, len);
+			//Do not count stop words in statistic, it's not interesting...
+			if (StopWords.Contains(wordChars, len))
+				return;
+			byte[] word = Encoding.UTF8.GetBytes(wordChars, 0, len);
 			if(!words.ContainsKey(word))
 			{
 				words.Add(word, 1);
