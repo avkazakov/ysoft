@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Analyzer.Core.Utilities;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Text
 {
 	internal class CharRangeComparer : IEqualityComparer<CharRange>
 	{

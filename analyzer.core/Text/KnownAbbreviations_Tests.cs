@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Text
 {
 	internal static partial class KnownAbbreviations
 	{

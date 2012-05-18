@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Analyzer.Simple;
+using Analyzer.Core.Text;
+using Analyzer.Core.Utilities;
 
 namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
 {

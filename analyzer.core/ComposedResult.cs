@@ -1,4 +1,5 @@
 using System.Text;
+using Analyzer.Core.Analyzers;
 
 namespace Analyzer.Core
 {

@@ -1,7 +1,6 @@
 using System.Linq;
-using Analyzer.Core.Analyzers;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Analyzers
 {
 	public class AnalyzerSet : IAnalyzer
 	{

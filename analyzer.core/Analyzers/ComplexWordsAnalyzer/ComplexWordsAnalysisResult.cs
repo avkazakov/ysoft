@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using Analyzer.Core.Utilities;
 
 namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
 {

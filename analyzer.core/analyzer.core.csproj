@@ -39,11 +39,11 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzerBase.cs" />
-    <Compile Include="AnalyzerSet.cs" />
-    <Compile Include="Analyzers\CharRange.cs" />
-    <Compile Include="Analyzers\CharRangeComparer.cs" />
-    <Compile Include="Analyzers\Chars.cs" />
+    <Compile Include="AnalyzerUtilityBase.cs" />
+    <Compile Include="Analyzers\AnalyzerSet.cs" />
+    <Compile Include="Text\CharRange.cs" />
+    <Compile Include="Text\CharRangeComparer.cs" />
+    <Compile Include="Text\Chars.cs" />
     <Compile Include="Analyzers\CharsNumberAnalyzer.cs" />
     <Compile Include="Analyzers\CharsNumberAnalyzer_Tests.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\ChunkReader.cs" />
@@ -53,17 +53,17 @@
     <Compile Include="Analyzers\ComplexWordsAnalyzer\ComplexWordsAnalysisResult.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\IChunkReader.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\IChunkWriter.cs" />
-    <Compile Include="Analyzers\ComplexWordsAnalyzer\StopWords.cs" />
+    <Compile Include="Text\StopWords.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\TopSelector.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\TopSelector_Tests.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsComplexAnalyzer.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsComplexAnalyzer_Tests.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsFrequency.cs" />
     <Compile Include="Analyzers\ComplexWordsAnalyzer\WordsProcessor.cs" />
-    <Compile Include="Analyzers\Const.cs" />
+    <Compile Include="Text\Const.cs" />
     <Compile Include="Analyzers\IAnalyzer.cs" />
-    <Compile Include="Analyzers\KnownAbbreviations.cs" />
-    <Compile Include="Analyzers\KnownAbbreviations_Tests.cs" />
+    <Compile Include="Text\KnownAbbreviations.cs" />
+    <Compile Include="Text\KnownAbbreviations_Tests.cs" />
     <Compile Include="Analyzers\LinesNumberAnalyzer.cs" />
     <Compile Include="Analyzers\LinesNumberAnalyzer_Tests.cs" />
     <Compile Include="Analyzers\SentencesNumberAnalyzer.cs" />
@@ -71,12 +71,12 @@
     <Compile Include="Analyzers\SimpleAnalysisResult.cs" />
     <Compile Include="Analyzers\WordsNumberAnalyzer.cs" />
     <Compile Include="Analyzers\WordsNumberAnalyzer_Tests.cs" />
-    <Compile Include="Comparer.cs" />
+    <Compile Include="Utilities\Comparer.cs" />
     <Compile Include="ComposedResult.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="Extensions_Tests.cs" />
+    <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="Utilities\Extensions_Tests.cs" />
     <Compile Include="FileProcessor.cs" />
-    <Compile Include="IAnalysisResult.cs" />
+    <Compile Include="Analyzers\IAnalysisResult.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="ProgressNotifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

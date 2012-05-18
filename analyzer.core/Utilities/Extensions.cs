@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Utilities
 {
 	internal static class Extensions
 	{

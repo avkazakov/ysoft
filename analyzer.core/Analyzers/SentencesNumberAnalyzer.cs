@@ -1,3 +1,5 @@
+using Analyzer.Core.Text;
+
 namespace Analyzer.Core.Analyzers
 {
 	public sealed partial class SentencesNumberAnalyzer : IAnalyzer

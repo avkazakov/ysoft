@@ -1,4 +1,4 @@
-namespace Analyzer.Core
+namespace Analyzer.Core.Text
 {
 	public static class Chars
 	{

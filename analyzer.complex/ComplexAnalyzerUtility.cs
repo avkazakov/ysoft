@@ -5,7 +5,7 @@ using Analyzer.Core.Utilities;
 
 namespace Analyzer.Complex
 {
-	class ComplexAnalyzer : AnalyzerBase
+	class ComplexAnalyzerUtility : AnalyzerUtilityBase
 	{
 		static void Main(string[] args)
 		{

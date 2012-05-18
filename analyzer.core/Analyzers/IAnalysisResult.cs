@@ -1,4 +1,4 @@
-namespace Analyzer.Core
+namespace Analyzer.Core.Analyzers
 {
 	public interface IAnalysisResult
 	{

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Analyzer.Core.Analyzers.ComplexWordsAnalyzer
+namespace Analyzer.Core.Text
 {
 	public static class StopWords
 	{

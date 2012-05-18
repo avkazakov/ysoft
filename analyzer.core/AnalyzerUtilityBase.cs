@@ -4,7 +4,7 @@ using Analyzer.Core.Utilities;
 
 namespace Analyzer.Core
 {
-	public abstract class AnalyzerBase
+	public abstract class AnalyzerUtilityBase
 	{
 		protected static bool CheckParams(Parameters p)
 		{

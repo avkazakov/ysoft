@@ -1,4 +1,4 @@
-namespace Analyzer.Core
+namespace Analyzer.Core.Text
 {
 	internal struct CharRange
 	{

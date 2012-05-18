@@ -4,7 +4,7 @@ using Analyzer.Core.Utilities;
 
 namespace Analyzer.Simple
 {
-	class SimpleAnalyzer : AnalyzerBase
+	class SimpleAnalyzerUtility : AnalyzerUtilityBase
 	{
 		static void Main(string[] args)
 		{

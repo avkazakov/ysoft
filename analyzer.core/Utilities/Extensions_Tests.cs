@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Utilities
 {
 	[TestFixture]
 	internal class Extensions_Tests

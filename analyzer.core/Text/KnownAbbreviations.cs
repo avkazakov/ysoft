@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Text
 {
 	static partial class KnownAbbreviations
 	{

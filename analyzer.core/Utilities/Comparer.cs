@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Analyzer.Core
+namespace Analyzer.Core.Utilities
 {
 	internal class Comparer : IComparer<char[]>, IComparer<byte[]>, IEqualityComparer<char[]>
 	{
