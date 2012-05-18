@@ -1,8 +1,11 @@
 using System;
 using System.Diagnostics;
 
-namespace temp
+namespace Analyzer.Simple
 {
+	/// <summary>
+	/// Locks is OK in this solution, no need to hurry printing statistic or debug logs
+	/// </summary>
 	public static class Log 
 	{
 		static Log()

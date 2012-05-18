@@ -4,4 +4,5 @@ namespace Analyzer.Simple
 	{
 		string ToHumanReadableText();
 	}
+
 }

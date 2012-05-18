@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Analyzer.Simple
 {
@@ -22,6 +23,11 @@ namespace Analyzer.Simple
 				}
 				return result;
 			}
+		}
+
+		public static void AppendFormatLine(this StringBuilder stringBuilder, string format, params object[] parameters)
+		{
+			stringBuilder.AppendLine(string.Format(format, parameters));
 		}
 	}
 }
