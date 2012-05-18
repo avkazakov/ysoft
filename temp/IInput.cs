@@ -9,13 +9,11 @@ namespace temp
 		string Current { get; }
 	}
 
-	//TODO: don't move int ctr
 	public sealed class Input : IInput
 	{
 		public Input(StreamReader reader)
 		{
 			this.reader = reader;
-			currentLine = reader.ReadLine();
 		}
 
 		public string MoveNext()

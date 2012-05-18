@@ -1,4 +1,4 @@
-namespace Analyzer.Simple
+namespace Analyzer.Simple.Analyzers
 {
 	public interface IAnalyzer
 	{

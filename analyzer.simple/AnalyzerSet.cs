@@ -1,3 +1,5 @@
+using Analyzer.Simple.Analyzers;
+
 namespace Analyzer.Simple
 {
 	public class AnalyzerSet

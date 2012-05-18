@@ -55,7 +55,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Extensions_Tests.cs" />
     <Compile Include="IAnalysisResult.cs" />
-    <Compile Include="IAnalyzer.cs" />
+    <Compile Include="Analyzers\IAnalyzer.cs" />
     <Compile Include="Analyzers\LinesNumberAnalyzer.cs" />
     <Compile Include="Analyzers\LinesNumberAnalyzer_Tests.cs" />
     <Compile Include="Log.cs" />

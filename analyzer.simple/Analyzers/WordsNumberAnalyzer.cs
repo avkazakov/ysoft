@@ -1,3 +1,5 @@
+using Analyzer.Simple.Analyzers;
+
 namespace Analyzer.Simple
 {
 	sealed partial class WordsNumberAnalyzer : IAnalyzer
