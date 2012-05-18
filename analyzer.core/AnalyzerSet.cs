@@ -1,10 +1,11 @@
+using System.Linq;
 using Analyzer.Core.Analyzers;
 
 namespace Analyzer.Core
 {
-	public class AnalyzerSet
+	public class AnalyzerSet : IAnalyzer
 	{
-		public AnalyzerSet(IAnalyzer[] analyzers)
+		public AnalyzerSet(params IAnalyzer[] analyzers)
 		{
 			this.analyzers = analyzers;
 		}
@@ -16,6 +17,12 @@ namespace Analyzer.Core
 				analyzers[i].TreatChar(c);
 			}
 		}
+
+		public IAnalysisResult Finish()
+		{
+			return new ComposedResult(analyzers.Select(a => a.Finish()).ToArray());
+		}
+
 		public IAnalysisResult[] GetResult()
 		{
 			var res = new IAnalysisResult[analyzers.Length];

@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Analyzer.Core.Analyzers
 {
-	sealed internal partial class WordsNumberAnalyzer
+	public sealed partial class WordsNumberAnalyzer
 	{
 		[TestFixture]
 		internal class WordsNumberAnalyzer_Tests

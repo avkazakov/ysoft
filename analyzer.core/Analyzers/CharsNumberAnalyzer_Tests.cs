@@ -2,7 +2,7 @@
 
 namespace Analyzer.Core.Analyzers
 {
-	sealed internal partial class CharsNumberAnalyzer
+	public sealed partial class CharsNumberAnalyzer
 	{
 		[TestFixture]
 		internal class CharsNumberAnalyzer_Tests

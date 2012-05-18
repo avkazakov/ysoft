@@ -1,6 +1,6 @@
 namespace Analyzer.Core.Analyzers
 {
-	sealed partial class WordsNumberAnalyzer : IAnalyzer
+	public sealed partial class WordsNumberAnalyzer : IAnalyzer
 	{
 		public void TreatChar(char c)
 		{

@@ -1,6 +1,6 @@
 namespace Analyzer.Core.Analyzers
 {
-	internal sealed partial class SentencesNumberAnalyzer : IAnalyzer
+	public sealed partial class SentencesNumberAnalyzer : IAnalyzer
 	{
 		public void TreatChar(char c)
 		{

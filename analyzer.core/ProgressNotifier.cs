@@ -19,7 +19,12 @@ namespace Analyzer.Core
 
 		public void ReportOperation()
 		{
-			completedOperations++;
+			ReportCompleted(completedOperations+1);
+		}
+
+		public void ReportCompleted(long alreadyCompletedOperations)
+		{
+			completedOperations = alreadyCompletedOperations;
 			double p = ((double)completedOperations / expectedOperaions) * 100;
 			progress = (int)p;
 			if (progress == prevProgress)
@@ -43,12 +48,13 @@ namespace Analyzer.Core
 				prevProgress = 100;
 			progress = 100;
 			PrintCurrentProgress();
+			Console.Out.WriteLine("");
 		}
 
 
 		private void Start()
 		{
-			Console.Out.Write("{0}. Completed: 0 %", processName);
+			Console.Out.Write("{0}. Completed:  0 %", processName);
 		}
 
 		private readonly string processName;

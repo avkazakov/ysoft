@@ -24,7 +24,8 @@ namespace temp
 			var progressNotifier = ProgressNotifier.Start("Iteration by int", count);
 			for(int i = 0; i < count - 1; i++)
 			{
-				progressNotifier.ReportOperation();
+//				progressNotifier.ReportOperation();
+				progressNotifier.ReportCompleted(i);
 			}
 			progressNotifier.Finish();
 			Console.Out.WriteLine("");
